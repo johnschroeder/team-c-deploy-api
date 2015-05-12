@@ -24,7 +24,11 @@
 
     },
     "mike":{
-
+        "port":50002,
+        "mysql":{
+            "user":"mvalenti",
+            "password":"TyrionLannister"
+        }
     },
     "tim":{
 
