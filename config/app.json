@@ -1,11 +1,6 @@
 {
     "default":{
-        "port":50001,
-        "mysql":{
-            "host":"localhost",
-            "user":"username",
-            "password":"password"
-        }
+        "port":50001
     },
     "dev":{
 
@@ -17,7 +12,11 @@
 
     },
     "hinyun":{
-
+        "mysql":{
+            "host":"localhost",
+            "user":"username",
+            "password":"password"
+        }
     },
     "claudiu":{
 
