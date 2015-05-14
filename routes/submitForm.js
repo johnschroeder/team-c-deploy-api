@@ -7,37 +7,19 @@ var router = express.Router();
 
 /*
 Usage:
-    localhost:50001/submitForm
     localhost:50001/submitForm/jobID/Description/employeeName
-    localhost:50001/submitForm/jobID/Description/employeeName/mode
-
-Fields:
-    jobID, Description, employeeName: Values to insert
-    mode: ("insert" | "create_and_insert")
 */
 
-router.route("/").get(function(req, res) {
-    submitForm(req, res);
-});
-
 router.route("/:jobID/:Description/:employeeName").get(function(req, res) {
-    submitForm(req, res);
-});
-
-router.route("/:jobID/:Description/:employeeName/:mode").get(function(req, res) {
-    submitForm(req, res);
-});
-
-function submitForm(req, res) {
     var mode = req.params.mode || "insert";
     var databaseName = "impDB";
 
     var tableName = "Entry";
     var tableFields = "(jobID int, Description TEXT, employeeName TINYTEXT)";
 
-    var id = req.params.jobID || "2112";
-    var desc = req.params.Description || "A modern day warrior";
-    var name = req.params.employeeName || "Tom Sawyer";
+    var id = req.params.jobID;
+    var desc = req.params.Description;
+    var name = req.params.employeeName;
     var values = req.params.values || "(" + id + ", '" + desc + "', '" + name + "')";
 
     var connection = mysql.createConnection({
@@ -85,22 +67,12 @@ function submitForm(req, res) {
         });
     };
 
-    switch (mode) {
-        case "insert":
-            queryToExecute = queryFunction("USE " + databaseName,
-                queryFunction("INSERT INTO " + tableName + " VALUES " + values)
-            );
-            break;
-        case "create_and_insert":
-            queryToExecute = queryFunction("USE " + databaseName,
-                queryFunction("CREATE TABLE IF NOT EXISTS " + tableName + " " + tableFields,
-                    queryFunction("INSERT INTO " + tableName + " VALUES " + values)
-                )
-            );
-            break;
-        default:
-            break;
-    }
+    queryToExecute = queryFunction("USE " + databaseName,
+        queryFunction("CREATE TABLE IF NOT EXISTS " + tableName + " " + tableFields,
+            queryFunction("INSERT INTO " + tableName + " VALUES " + values)
+        )
+    );
+
 
     connection.connect(function(err) {
         if (err) {
