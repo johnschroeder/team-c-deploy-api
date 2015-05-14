@@ -17,7 +17,7 @@ router.route("/:jobID/:Description/:employeeName").get(function(req, res) {
     var id = req.params.jobID;
     var desc = req.params.Description;
     var name = req.params.employeeName;
-    var values = "(" + id + ", '" + desc + "', '" + name + "')";
+    var values = "(" + parseInt(id) + ", " + mysql.escape(desc) + ", " + mysql.escape(name) + ")";
 
     var connection = mysql.createConnection({
         host: config.app.mysql.host,
