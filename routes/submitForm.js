@@ -1,8 +1,6 @@
 var mysql = require("mysql");
 var config = require("konfig")();
-
 var express = require("express");
-
 var router = express.Router();
 
 /*
@@ -19,7 +17,7 @@ router.route("/:jobID/:Description/:employeeName").get(function(req, res) {
     var id = req.params.jobID;
     var desc = req.params.Description;
     var name = req.params.employeeName;
-    var values = req.params.values || "(" + id + ", '" + desc + "', '" + name + "')";
+    var values = "(" + id + ", '" + desc + "', '" + name + "')";
 
     var connection = mysql.createConnection({
         host: config.app.mysql.host,
@@ -76,6 +74,6 @@ router.route("/:jobID/:Description/:employeeName").get(function(req, res) {
             });
         }
     });
-}
+});
 
 module.exports = router;
