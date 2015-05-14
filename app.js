@@ -12,7 +12,7 @@ glob.sync('**/*.js',{'cwd':path}).forEach(
     }
 );
 app.use('*', function(req, res){
-    res.satus(404).send("Nothing Found");
+    res.status(404).send("Nothing Found");
 });
 
 
