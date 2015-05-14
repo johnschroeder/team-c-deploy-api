@@ -1,7 +1,11 @@
 var mysql = require("mysql");
 var config = require("konfig")();
 
-var router = function(req, res) {
+var express = require("express");
+
+var router = express.Router();
+
+router.route("/").get(function(req, res) {
     var connection = mysql.createConnection({
         host: config.app.mysql.host,
         user: config.app.mysql.user,
@@ -58,6 +62,6 @@ var router = function(req, res) {
             });
         }
     });    
-};
+});
 
 module.exports = router;
