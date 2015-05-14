@@ -11,7 +11,6 @@ Usage:
 */
 
 router.route("/:jobID/:Description/:employeeName").get(function(req, res) {
-    var mode = req.params.mode || "insert";
     var databaseName = "impDB";
 
     var tableName = "Entry";
@@ -55,19 +54,7 @@ router.route("/:jobID/:Description/:employeeName").get(function(req, res) {
         };
     };
 
-    var queryToExecute = function() {
-        connection.commit(function(err) {
-            if (err) {
-                console.error(err.stack);
-                res.status(503).send("Commit Error: " + err.code);
-            } else {
-                res.status(503).send("Error: Mode not recognized");
-                connection.end();
-            }
-        });
-    };
-
-    queryToExecute = queryFunction("USE " + databaseName,
+    var queryToExecute = queryFunction("USE " + databaseName,
         queryFunction("CREATE TABLE IF NOT EXISTS " + tableName + " " + tableFields,
             queryFunction("INSERT INTO " + tableName + " VALUES " + values)
         )
