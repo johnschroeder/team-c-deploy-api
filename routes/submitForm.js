@@ -5,19 +5,40 @@ var express = require("express");
 
 var router = express.Router();
 
-//Request fields:
-//    mode: ("insert" | "create", | "create_and_insert")
-//    database: Database name
-//    table: Table name
-//    fields: Table fields (for table creation)
-//    values: Values to insert
+/*
+Usage:
+    localhost:50001/submitForm
+    localhost:50001/submitForm/jobID/Description/employeeName
+    localhost:50001/submitForm/jobID/Description/employeeName/mode
+
+Fields:
+    jobID, Description, employeeName: Values to insert
+    mode: ("insert" | "create_and_insert")
+*/
 
 router.route("/").get(function(req, res) {
-    var mode = req.params.mode || "create_and_insert";
-    var databaseName = req.params.database || "impDB";
-    var tableName = req.params.table || "Entry";
-    var tableFields = req.params.fields || "(jobID int, Description TEXT, employeeName TINYTEXT)";
-    var values = req.params.values || "(2112, 'A modern day warrior' ,'Tom Sawyer')";
+    submitForm(req, res);
+});
+
+router.route("/:jobID/:Description/:employeeName").get(function(req, res) {
+    submitForm(req, res);
+});
+
+router.route("/:jobID/:Description/:employeeName/:mode").get(function(req, res) {
+    submitForm(req, res);
+});
+
+function submitForm(req, res) {
+    var mode = req.params.mode || "insert";
+    var databaseName = "impDB";
+
+    var tableName = "Entry";
+    var tableFields = "(jobID int, Description TEXT, employeeName TINYTEXT)";
+
+    var id = req.params.jobID || "2112";
+    var desc = req.params.Description || "A modern day warrior";
+    var name = req.params.employeeName || "Tom Sawyer";
+    var values = req.params.values || "(" + id + ", '" + desc + "', '" + name + "')";
 
     var connection = mysql.createConnection({
         host: config.app.mysql.host,
@@ -52,24 +73,29 @@ router.route("/").get(function(req, res) {
         };
     };
 
-    var queryToExecute = function() {};
+    var queryToExecute = function() {
+        connection.commit(function(err) {
+            if (err) {
+                console.error(err.stack);
+                res.status(503).send("Commit Error: " + err.code);
+            } else {
+                res.status(503).send("Error: Mode not recognized");
+                connection.end();
+            }
+        });
+    };
 
     switch (mode) {
+        case "insert":
+            queryToExecute = queryFunction("USE " + databaseName,
+                queryFunction("INSERT INTO " + tableName + " VALUES " + values)
+            );
+            break;
         case "create_and_insert":
             queryToExecute = queryFunction("USE " + databaseName,
                 queryFunction("CREATE TABLE IF NOT EXISTS " + tableName + " " + tableFields,
                     queryFunction("INSERT INTO " + tableName + " VALUES " + values)
                 )
-            );
-            break;
-        case "create":
-            queryToExecute = queryFunction("USE " + databaseName,
-                queryFunction("CREATE TABLE IF NOT EXISTS " + tableName + " " + tableFields)
-            );
-            break;
-        case "insert":
-            queryToExecute = queryFunction("USE " + databaseName,
-                queryFunction("INSERT INTO " + tableName + " VALUES " + values)
             );
             break;
         default:
@@ -91,6 +117,6 @@ router.route("/").get(function(req, res) {
             });
         }
     });
-});
+}
 
 module.exports = router;
