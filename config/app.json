@@ -38,7 +38,7 @@
 
     },
     "mike":{
-        "port":50001,
+        "port":50002,
         "mysql":{
             "host":"localhost",
             "user":"mvalenti",
