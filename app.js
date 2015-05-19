@@ -32,6 +32,7 @@ glob.sync('**/*.js',{'cwd':path}).forEach(
     }
 );
 app.use('*', function(req, res){
+    console.log("Error trying to display route: "+req.path);
     res.status(404).send("Nothing Found");
 });
 
