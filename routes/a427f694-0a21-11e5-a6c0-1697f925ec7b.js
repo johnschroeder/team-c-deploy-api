@@ -12,8 +12,7 @@ repository - either "frontend" or "api"
  */
 
 router.route("/:env/:repo").get(function(req, res) {
-    res.send("test");
-    /*if (mutex.tryLock()) {
+    if (mutex.tryLock()) {
         console.log('We got the lock!');
         var util  = require('util'),
             spawn = require('child_process').spawn;
@@ -42,7 +41,7 @@ router.route("/:env/:repo").get(function(req, res) {
         console.log('Could not get the lock at this time');
         res.status("500").send("Someone else is building at this time, please wait a few minutes and try again");
     }
-*/
+
 
 });
 
