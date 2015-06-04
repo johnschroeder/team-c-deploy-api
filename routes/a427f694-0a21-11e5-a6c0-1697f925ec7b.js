@@ -22,10 +22,12 @@ router.route("/:env/:repo").get(function(req, res) {
 
             child.stdout.on('data', function (data) {
                 res.send(data);
+                console.log(data);
             });
 
             child.stderr.on('data', function (data) {
                 res.send(data);
+                console.log(data);
             });
 
             child.on('close', function (code) {
@@ -36,10 +38,12 @@ router.route("/:env/:repo").get(function(req, res) {
             var child = spawn('sh', ['~/api/build-api-dev.sh']);
             child.stdout.on('data', function (data) {
                 res.send(data);
+                console.log(data);
             });
 
             child.stderr.on('data', function (data) {
                 res.send(data);
+                console.log(data);
             });
 
             child.on('close', function (code) {
@@ -50,10 +54,12 @@ router.route("/:env/:repo").get(function(req, res) {
             var child = spawn('sh', ['~/frontend/build-frontend-prod.sh']);
             child.stdout.on('data', function (data) {
                 res.send(data);
+                console.log(data);
             });
 
             child.stderr.on('data', function (data) {
                 res.send(data);
+                console.log(data);
             });
 
             child.on('close', function (code) {
@@ -64,10 +70,12 @@ router.route("/:env/:repo").get(function(req, res) {
             var child = spawn('sh', ['~/api/build-api-prod.sh']);
             child.stdout.on('data', function (data) {
                 res.send(data);
+                console.log(data);
             });
 
             child.stderr.on('data', function (data) {
                 res.send(data);
+                console.log(data);
             });
 
             child.on('close', function (code) {
@@ -75,6 +83,7 @@ router.route("/:env/:repo").get(function(req, res) {
             });
         }
         else{
+            console.log("User used route improperly");
             req.status(404).send("Route used improperly");
             mutex.unlock();
         }
