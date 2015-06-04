@@ -42,8 +42,8 @@ router.route("/:env/:repo").get(function(req, res) {
             });
 
             child.stderr.on('data', function (data) {
-                res.send(data.toString('base64'));
                 console.log(data.toString('base64'));
+                //res.send(data.toString('base64'));
             });
 
             child.on('close', function (code) {
