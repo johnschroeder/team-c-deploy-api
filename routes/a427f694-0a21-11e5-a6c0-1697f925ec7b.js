@@ -35,7 +35,9 @@ router.route("/:env/:repo").get(function(req, res) {
             });
         }
         else if(req.params.env === "dev" && req.params.repo === "api"){
-            var child = spawn('sh', ['/home/ubuntu/api/build-api-dev.sh']);
+            var child = spawn('sh', ['build-api-dev.sh'], {
+                cwd: process.env.HOME + '/api',
+                env:_.extend(process.env, { PATH: process.env.PATH + ':/usr/local/bin' })});
             child.stdout.on('data', function (data) {
                 res.send(data.toString());
                 console.log(data.toString());
@@ -43,7 +45,7 @@ router.route("/:env/:repo").get(function(req, res) {
 
             child.stderr.on('data', function (data) {
                 console.log(data.toString());
-                //res.send(data.toString('base64'));
+                res.send(data.toString());
             });
 
             child.on('close', function (code) {
