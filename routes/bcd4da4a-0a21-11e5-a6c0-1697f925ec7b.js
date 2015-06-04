@@ -4,10 +4,11 @@ var AWS = require("aws-sdk");
 var router = express.Router();
 
 /*
- Usage:
- deploy.thisisimp.com/bcd4da4a-0a21-11e5-a6c0-1697f925ec7b/:environment/:repository
- environment - either "dev" or "prod"
- repository - either "frontend" or "api"
+This is the deploy route
+Usage:
+deploy.thisisimp.com/bcd4da4a-0a21-11e5-a6c0-1697f925ec7b/:environment/:repository
+environment - either "dev" or "prod"
+repository - either "frontend" or "api"
  */
 
 router.route("/:env/:repo").get(function(req, res) {
