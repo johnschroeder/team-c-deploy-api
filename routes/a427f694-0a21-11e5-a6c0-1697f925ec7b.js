@@ -18,7 +18,7 @@ router.route("/:env/:repo").get(function(req, res) {
             spawn = require('child_process').spawn;
 
         if(req.params.env === "dev" && req.params.repo === "frontend"){
-            var child = spawn('sh', ['~/frontend/build-frontend-dev.sh']);
+            var child = spawn('sh', ['/home/ubuntu/frontend/build-frontend-dev.sh']);
 
             child.stdout.on('data', function (data) {
                 res.send(data.toString('base64'));
@@ -35,7 +35,7 @@ router.route("/:env/:repo").get(function(req, res) {
             });
         }
         else if(req.params.env === "dev" && req.params.repo === "api"){
-            var child = spawn('sh', ['~/api/build-api-dev.sh']);
+            var child = spawn('sh', ['/home/ubuntu/api/build-api-dev.sh']);
             child.stdout.on('data', function (data) {
                 res.send(data.toString());
                 console.log(data.toString());
@@ -51,7 +51,7 @@ router.route("/:env/:repo").get(function(req, res) {
             });
         }
         else if(req.params.env === "prod" && req.params.repo === "frontend"){
-            var child = spawn('sh', ['~/frontend/build-frontend-prod.sh']);
+            var child = spawn('sh', ['/home/ubuntu/frontend/build-frontend-prod.sh']);
             child.stdout.on('data', function (data) {
                 res.send(data.toString('base64'));
                 console.log(data.toString('base64'));
@@ -67,7 +67,7 @@ router.route("/:env/:repo").get(function(req, res) {
             });
         }
         else if(req.params.env === "prod" && req.params.repo === "api"){
-            var child = spawn('sh', ['~/api/build-api-prod.sh']);
+            var child = spawn('sh', ['/home/ubuntu/api/build-api-prod.sh']);
             child.stdout.on('data', function (data) {
                 res.send(data.toString('base64'));
                 console.log(data.toString('base64'));
