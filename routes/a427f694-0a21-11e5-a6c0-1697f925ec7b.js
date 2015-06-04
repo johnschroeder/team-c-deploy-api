@@ -19,27 +19,68 @@ router.route("/:env/:repo").get(function(req, res) {
 
         if(req.params.env === "dev" && req.params.repo === "frontend"){
             var child = spawn('sh', ['~/frontend/build-frontend-dev.sh']);
-            child.stdout.pipe(res);
+
+            child.stdout.on('data', function (data) {
+                res.send(data);
+            });
+
+            child.stderr.on('data', function (data) {
+                res.status(500).send(data);
+            });
+
+            child.on('close', function (code) {
+                mutex.unlock();
+            });
         }
         else if(req.params.env === "dev" && req.params.repo === "api"){
             var child = spawn('sh', ['~/api/build-api-dev.sh']);
-            child.stdout.pipe(res);
+            child.stdout.on('data', function (data) {
+                res.send(data);
+            });
+
+            child.stderr.on('data', function (data) {
+                res.status(500).send(data);
+            });
+
+            child.on('close', function (code) {
+                mutex.unlock();
+            });
         }
         else if(req.params.env === "prod" && req.params.repo === "frontend"){
             var child = spawn('sh', ['~/frontend/build-frontend-prod.sh']);
-            child.stdout.pipe(res);
+            child.stdout.on('data', function (data) {
+                res.send(data);
+            });
+
+            child.stderr.on('data', function (data) {
+                res.status(500).send(data);
+            });
+
+            child.on('close', function (code) {
+                mutex.unlock();
+            });
         }
         else if(req.params.env === "prod" && req.params.repo === "api"){
             var child = spawn('sh', ['~/api/build-api-prod.sh']);
-            child.stdout.pipe(res);
+            child.stdout.on('data', function (data) {
+                res.send(data);
+            });
+
+            child.stderr.on('data', function (data) {
+                res.status(500).send(data);
+            });
+
+            child.on('close', function (code) {
+                mutex.unlock();
+            });
         }
         else{
-            req.status("404").send("Route used improperly");
+            req.status(404).send("Route used improperly");
+            mutex.unlock();
         }
-        mutex.unlock();
     } else {
         console.log('Could not get the lock at this time');
-        res.status("500").send("Someone else is building at this time, please wait a few minutes and try again");
+        res.status(500).send("Someone else is building at this time, please wait a few minutes and try again");
     }
 
 
