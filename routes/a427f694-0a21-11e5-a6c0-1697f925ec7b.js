@@ -37,13 +37,13 @@ router.route("/:env/:repo").get(function(req, res) {
         else if(req.params.env === "dev" && req.params.repo === "api"){
             var child = spawn('sh', ['~/api/build-api-dev.sh']);
             child.stdout.on('data', function (data) {
-                res.send(data);
-                console.log(data);
+                res.send(data.toString('base64'));
+                console.log(data.toString('base64'));
             });
 
             child.stderr.on('data', function (data) {
-                res.send(data);
-                console.log(data);
+                res.send(data.toString('base64'));
+                console.log(data.toString('base64'));
             });
 
             child.on('close', function (code) {
@@ -53,13 +53,13 @@ router.route("/:env/:repo").get(function(req, res) {
         else if(req.params.env === "prod" && req.params.repo === "frontend"){
             var child = spawn('sh', ['~/frontend/build-frontend-prod.sh']);
             child.stdout.on('data', function (data) {
-                res.send(data);
-                console.log(data);
+                res.send(data.toString('base64'));
+                console.log(data.toString('base64'));
             });
 
             child.stderr.on('data', function (data) {
-                res.send(data);
-                console.log(data);
+                res.send(data.toString('base64'));
+                console.log(data.toString('base64'));
             });
 
             child.on('close', function (code) {
@@ -69,13 +69,13 @@ router.route("/:env/:repo").get(function(req, res) {
         else if(req.params.env === "prod" && req.params.repo === "api"){
             var child = spawn('sh', ['~/api/build-api-prod.sh']);
             child.stdout.on('data', function (data) {
-                res.send(data);
-                console.log(data);
+                res.send(data.toString('base64'));
+                console.log(data.toString('base64'));
             });
 
             child.stderr.on('data', function (data) {
-                res.send(data);
-                console.log(data);
+                res.send(data.toString('base64'));
+                console.log(data.toString('base64'));
             });
 
             child.on('close', function (code) {
