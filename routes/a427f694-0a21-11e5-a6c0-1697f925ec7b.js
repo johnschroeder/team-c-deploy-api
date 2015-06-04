@@ -25,7 +25,7 @@ router.route("/:env/:repo").get(function(req, res) {
             });
 
             child.stderr.on('data', function (data) {
-                res.status(500).send(data);
+                res.send(data);
             });
 
             child.on('close', function (code) {
@@ -39,7 +39,7 @@ router.route("/:env/:repo").get(function(req, res) {
             });
 
             child.stderr.on('data', function (data) {
-                res.status(500).send(data);
+                res.send(data);
             });
 
             child.on('close', function (code) {
@@ -53,7 +53,7 @@ router.route("/:env/:repo").get(function(req, res) {
             });
 
             child.stderr.on('data', function (data) {
-                res.status(500).send(data);
+                res.send(data);
             });
 
             child.on('close', function (code) {
@@ -67,7 +67,7 @@ router.route("/:env/:repo").get(function(req, res) {
             });
 
             child.stderr.on('data', function (data) {
-                res.status(500).send(data);
+                res.send(data);
             });
 
             child.on('close', function (code) {
