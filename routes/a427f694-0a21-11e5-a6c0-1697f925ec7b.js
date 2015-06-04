@@ -2,7 +2,7 @@ var express = require("express"),
     router = express.Router();
 var locks = require('locks');
 
-
+var mutex = locks.createMutex();
 /*
 This is the build route
 Usage:
