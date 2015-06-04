@@ -37,12 +37,12 @@ router.route("/:env/:repo").get(function(req, res) {
         else if(req.params.env === "dev" && req.params.repo === "api"){
             var child = spawn('sh', ['~/api/build-api-dev.sh']);
             child.stdout.on('data', function (data) {
-                res.send(data.toString('base64'));
-                console.log(data.toString('base64'));
+                res.send(data.toString());
+                console.log(data.toString());
             });
 
             child.stderr.on('data', function (data) {
-                console.log(data.toString('base64'));
+                console.log(data.toString());
                 //res.send(data.toString('base64'));
             });
 
