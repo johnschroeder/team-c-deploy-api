@@ -1,8 +1,10 @@
 var express = require('express');
 var config = require('konfig')();
 var glob = require('glob');
+var timeout = require('connect-timeout');
 
 var app = express();
+app.use(timeout('600s'));
 
 var path = process.cwd()+'/routes';
 glob.sync('**/*.js',{'cwd':path}).forEach(
