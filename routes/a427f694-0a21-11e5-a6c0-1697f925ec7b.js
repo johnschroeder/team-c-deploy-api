@@ -31,6 +31,9 @@ router.route("/:env/:repo").get(function(req, res) {
             });
 
             child.on('close', function (code) {
+                res.write("Finished building! Grats!");
+                console.log("User finished building");
+                res.end();
                 mutex.unlock();
             });
         }
@@ -47,6 +50,9 @@ router.route("/:env/:repo").get(function(req, res) {
             });
 
             child.on('close', function (code) {
+                res.write("Finished building! Grats!");
+                console.log("User finished building");
+                res.end();
                 mutex.unlock();
             });
         }
@@ -63,6 +69,9 @@ router.route("/:env/:repo").get(function(req, res) {
             });
 
             child.on('close', function (code) {
+                res.write("Finished building! Grats!");
+                console.log("User finished building");
+                res.end();
                 mutex.unlock();
             });
         }
@@ -79,6 +88,9 @@ router.route("/:env/:repo").get(function(req, res) {
             });
 
             child.on('close', function (code) {
+                res.write("Finished building! Grats!");
+                console.log("User finished building");
+                res.end();
                 mutex.unlock();
             });
         }
