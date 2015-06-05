@@ -35,9 +35,7 @@ router.route("/:env/:repo").get(function(req, res) {
             });
         }
         else if(req.params.env === "dev" && req.params.repo === "api"){
-            var child = spawn('sh', ['build-api-dev.sh'], {
-                cwd: '/home/ubuntu/api',
-                env: process.env});
+            var child = spawn('sh', ['/home/ubuntu/api/build-api-dev.sh']);
             child.stdout.on('data', function (data) {
                 res.send(data.toString());
                 console.log(data.toString());
