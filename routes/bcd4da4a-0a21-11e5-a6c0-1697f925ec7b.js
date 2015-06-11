@@ -11,6 +11,8 @@ environment - either "dev" or "prod"
 repository - either "frontend" or "api"
  */
 
+//TODO actually poll the containers before stating deploy is succesful
+
 router.route("/:env/:repo").get(function(req, res) {
     var ecs = new AWS.ECS({apiVersion: '2014-11-13', region:"us-west-2"});
     if(req.params.env === "dev" && req.params.repo === "frontend"){
