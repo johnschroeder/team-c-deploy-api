@@ -33,8 +33,8 @@ router.route("/:env/:repo").get(function(req, res) {
             child.on('close', function (code) {
                 res.write("Finished building! Grats!");
                 console.log("User finished building");
-                res.end();
                 mutex.unlock();
+                res.end();
             });
         }
         else if(req.params.env === "dev" && req.params.repo === "api"){
@@ -52,8 +52,8 @@ router.route("/:env/:repo").get(function(req, res) {
             child.on('close', function (code) {
                 res.write("Finished building! Grats!");
                 console.log("User finished building");
-                res.end();
                 mutex.unlock();
+                res.end();
             });
         }
         else if(req.params.env === "prod" && req.params.repo === "frontend"){
@@ -71,8 +71,8 @@ router.route("/:env/:repo").get(function(req, res) {
             child.on('close', function (code) {
                 res.write("Finished building! Grats!");
                 console.log("User finished building");
-                res.end();
                 mutex.unlock();
+                res.end();
             });
         }
         else if(req.params.env === "prod" && req.params.repo === "api"){
@@ -90,14 +90,14 @@ router.route("/:env/:repo").get(function(req, res) {
             child.on('close', function (code) {
                 res.write("Finished building! Grats!");
                 console.log("User finished building");
-                res.end();
                 mutex.unlock();
+                res.end();
             });
         }
         else{
             console.log("User used route improperly");
-            req.status(404).send("Route used improperly");
             mutex.unlock();
+            req.status(404).send("Route used improperly");
         }
     } else {
         console.log('Could not get the lock at this time');
