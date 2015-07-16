@@ -12,6 +12,7 @@ repository - either "frontend" or "api"
  */
 
 router.route("/:env/:repo").get(function(req, res) {
+    console.log("Attempting to get lock");
     if (mutex.tryLock()) {
         console.log('We got the lock!');
         var util  = require('util'),
