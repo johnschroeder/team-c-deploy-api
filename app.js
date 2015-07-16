@@ -2,9 +2,11 @@ var express = require('express');
 var config = require('konfig')();
 var glob = require('glob');
 var timeout = require('connect-timeout');
+var favicon = require('serve-favicon');
 
 var app = express();
 app.use(timeout('600s'));
+app.use(favicon(__dirname + '/public/images/favicon.ico'));
 
 var path = process.cwd()+'/routes';
 glob.sync('**/*.js',{'cwd':path}).forEach(
