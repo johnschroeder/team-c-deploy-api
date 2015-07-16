@@ -58,7 +58,7 @@ var redeploy = function(name, req, res){
                     else{
                         console.log(data);
                         if(len-- === 1){
-                            res.send("Successfully redeployed cluster");
+                            res.send("Deploy was successful, your service is rebooting, give it 2-3 minutes.");
                         }
                     }
                 })
